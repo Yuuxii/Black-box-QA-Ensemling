@@ -5,7 +5,7 @@
 Download image feature from [LXMERT](https://github.com/airsplay/lxmert):
 
 ```
-mkdir -p data/vg_gqa_imgfeatwget
+mkdir -p data/vg_gqa_imgfeat
 wget https://nlp.cs.unc.edu/data/lxmert_data/vg_gqa_imgfeat/vg_gqa_obj36.zip -P data/vg_gqa_imgfeat
 unzip data/vg_gqa_imgfeat/vg_gqa_obj36.zip -d data && rm data/vg_gqa_imgfeat/vg_gqa_obj36.zip
 wget https://nlp.cs.unc.edu/data/lxmert_data/vg_gqa_imgfeat/gqa_testdev_obj36.zip -P data/vg_gqa_imgfeat
