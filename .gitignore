@@ -1,0 +1,14 @@
+infosel_mt/results
+infosel_mt/outs
+infosel_mt/snap
+infosel_mt/visual_data
+infosel_tt/outs
+infosel_tt/predictions
+infosel_tt/tt_outs
+infosel_tt/finetuned_bertmodel
+infosel_tt/outs
+infosel_mt/tmp
+infosel_mt/src/tools/__pycache__
+infosel_mt/src/tasks/__pycache__
+infosel_mt/src/pretrain/__pycache__
+infosel_mt/src/lxrt/__pycache__
