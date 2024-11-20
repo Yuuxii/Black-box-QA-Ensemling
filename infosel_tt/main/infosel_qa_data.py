@@ -7,6 +7,7 @@ class MCEnsbDataset(Dataset):
         self.include_model = args.include_model
         self.eval_metric = args.eval_metric
         self.dataname = args.dataname
+        self.input_info = args.input_info
         self.exclude_worst_model = args.exclude_worst_model
         self.random_sample = args.random_sample
         if self.dataname == 'sq':
@@ -107,15 +108,38 @@ class MCEnsbDataset(Dataset):
                     'label':    gt_ans,
             }
         else:
-            return_item = {'question': question, 
-                    'ans1':     anses[0], 
-                    'ans2':     anses[1], 
-                    'ans3':     anses[2],  
-                    'label':    gt_ans,
-                    # 'em': [self.data['chatgpt_em'][index],self.data['gpt3_em'][index], self.data['llama_em'][index] ],
-                    # 'prec': [self.data['chatgpt_prec'][index],self.data['gpt3_prec'][index], self.data['llama_prec'][index] ],
-                    # 'rec': [self.data['chatgpt_rec'][index],self.data['gpt3_rec'][index], self.data['llama_rec'][index] ],
-            }
+            if self.input_info == 'q':
+                return_item = {'question': question, 
+                        'ans1':     '', 
+                        'ans2':     '',
+                        'ans3':     '', 
+                        'label':    gt_ans,
+                        # 'em': [self.data['chatgpt_em'][index],self.data['gpt3_em'][index], self.data['llama_em'][index] ],
+                        # 'prec': [self.data['chatgpt_prec'][index],self.data['gpt3_prec'][index], self.data['llama_prec'][index] ],
+                        # 'rec': [self.data['chatgpt_rec'][index],self.data['gpt3_rec'][index], self.data['llama_rec'][index] ],
+                }
+                
+            elif self.input_info == 'a':
+                return_item = {'question': '', 
+                        'ans1':     anses[0], 
+                        'ans2':     anses[1], 
+                        'ans3':     anses[2],  
+                        'label':    gt_ans,
+                        # 'em': [self.data['chatgpt_em'][index],self.data['gpt3_em'][index], self.data['llama_em'][index] ],
+                        # 'prec': [self.data['chatgpt_prec'][index],self.data['gpt3_prec'][index], self.data['llama_prec'][index] ],
+                        # 'rec': [self.data['chatgpt_rec'][index],self.data['gpt3_rec'][index], self.data['llama_rec'][index] ],
+                }
+            else:
+                return_item = {'question': question, 
+                        'ans1':     anses[0], 
+                        'ans2':     anses[1], 
+                        'ans3':     anses[2],  
+                        'label':    gt_ans,
+                        # 'em': [self.data['chatgpt_em'][index],self.data['gpt3_em'][index], self.data['llama_em'][index] ],
+                        # 'prec': [self.data['chatgpt_prec'][index],self.data['gpt3_prec'][index], self.data['llama_prec'][index] ],
+                        # 'rec': [self.data['chatgpt_rec'][index],self.data['gpt3_rec'][index], self.data['llama_rec'][index] ],
+                }
+
         for k, v in tokenized_examples.items():
             for i in range(0, len(v), num_ans):
                 return_item[k] = v[i : i + num_ans]

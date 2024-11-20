@@ -1282,7 +1282,7 @@ class LXRTModel(BertPreTrainedModel):
 
         # print('feats:', feats)
         indiv_concated_mask = {}
-        if feats == 'qa' or feats == 'q':
+        if feats == 'qa' or feats == 'q' or feats=='a':
             # print('ssssss')
             for i in range(candidate_num):
                 indiv_concated_mask[i] = torch.cat([ i for i in [indiv_attention_mask[i], torch.ones_like(extended_visual_tags_mask)* -10000.0, torch.zeros_like(extended_visual_attention_mask)] if i is not None], dim=-1)

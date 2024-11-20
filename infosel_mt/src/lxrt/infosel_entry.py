@@ -137,58 +137,25 @@ def convert_sents_to_features_tensors(sents, candidates, max_seq_length, tokeniz
       
         # Account for [CLS] and [SEP] with "- 2"
         final_tokens = [t[:(max_seq_length - 2)] if len(t) > max_seq_length - 2 else t for t in final_tokens]
-        # if len(a_tokens) > max_seq_length - 2:
-        #     a_tokens = a_tokens[:(max_seq_length - 2)]
-        # if len(b_tokens) > max_seq_length - 2:
-        #     b_tokens = b_tokens[:(max_seq_length - 2)]
-        # if len(v_tokens) > max_seq_length - 2:
-        #     v_tokens = v_tokens[:(max_seq_length - 2)]
-        
+
         # Keep segment id which allows loading BERT-weights.
         final_tokens = [["[CLS]"] + t + ["[SEP]"] for t in final_tokens]
-        # a_tokens = ["[CLS]"] + a_tokens + ["[SEP]"]
-        # b_tokens = ["[CLS]"] + b_tokens + ["[SEP]"]
-        # v_tokens = ["[CLS]"] + v_tokens + ["[SEP]"]
 
         segment_ids = [[0]* len(t) for t in final_tokens]
-        # a_segment_ids = [0] * len(a_tokens)
-        # b_segment_ids = [0] * len(b_tokens)
-        # v_segment_ids = [0] * len(v_tokens)
 
         input_ids = [tokenizer.convert_tokens_to_ids(t) for t in final_tokens]
-        # a_input_ids = tokenizer.convert_tokens_to_ids(a_tokens)
-        # b_input_ids = tokenizer.convert_tokens_to_ids(b_tokens)
-        # v_input_ids = tokenizer.convert_tokens_to_ids(v_tokens)
-        # The mask has 1 for real tokens and 0 for padding tokens. Only real
-        # tokens are attended to.
-        # if 'q' not in feats and 'a' not in feats:
-        #     a_input_mask = [1] * len(a_input_ids)
-        #     b_input_mask = [1] * len(b_input_ids)
-        #     v_input_mask = [1] * len(v_input_ids)
+
         # else:
         input_mask = [[1] * len(id) for id in input_ids]
-        # a_input_mask = [1] * len(a_input_ids)
-        # b_input_mask = [1] * len(b_input_ids)
-        # v_input_mask = [1] * len(v_input_ids) 
+   
         # Zero-pad up to the sequence length.
         padding = [[0] * (max_seq_length - len(id)) for id in input_ids]
-        # a_padding = [0] * (max_seq_length - len(a_input_ids))
-        # b_padding = [0] * (max_seq_length - len(b_input_ids))
-        # v_padding = [0] * (max_seq_length - len(v_input_ids))
+     
 
         input_ids = [id+pad for id, pad in zip(input_ids, padding)]
         input_mask = [mask+pad for mask, pad in zip(input_mask, padding)]
         segment_ids = [s_id+pad for s_id, pad in zip(segment_ids, padding)]
 
-        # a_input_ids += a_padding
-        # b_input_ids += b_padding
-        # v_input_ids += v_padding
-        # a_input_mask += a_padding
-        # b_input_mask += b_padding
-        # v_input_mask += v_padding
-        # a_segment_ids += a_padding
-        # b_segment_ids += b_padding
-        # v_segment_ids += v_padding
 
         assert len(input_ids[0]) == max_seq_length
         assert len(input_mask[0]) == max_seq_length

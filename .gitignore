@@ -7,9 +7,13 @@ infosel_tt/predictions
 infosel_tt/tt_outs
 infosel_tt/finetuned_bertmodel
 infosel_tt/outs
+infosel_tt/bash
+infosel_tt/datasets
 infosel_mt/tmp
 infosel_mt/src/tools/__pycache__
 infosel_mt/src/tasks/__pycache__
 infosel_mt/src/pretrain/__pycache__
 infosel_mt/src/lxrt/__pycache__
-README.md
+infosel_mt/mc_outs
+infosel_mt/bash
+infosel_mt/data

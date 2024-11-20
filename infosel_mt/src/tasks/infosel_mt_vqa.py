@@ -201,8 +201,8 @@ class VQA:
                     
 
         if args.dataname == 'vizwiz' and args.test == 'test':
-            print('save result to:', 'mc_outs/a_vizwiz_train_per/' + (args.output).split('/')[-1] + '_'+ str(args.use_amount)+ '.json')
-            json.dump(results, open('mc_outs/a_vizwiz_train_per/' + (args.output).split('/')[-1] + '_'+ str(args.use_amount)+ '.json', 'w'))
+            print('save result to:', 'mc_outs/vizwiz_train_per/' + (args.output).split('/')[-1] + '_'+ str(args.use_amount) + '_' + args.features + '.json')
+            json.dump(results, open('mc_outs/vizwiz_train_per/' + (args.output).split('/')[-1] + '_'+ str(args.use_amount) + '_' + args.features + '.json', 'w'))
             return 0.
         elif dump is not None:
             print('save result to:', dump)
@@ -294,12 +294,12 @@ if __name__ == "__main__":
         if args.dataname == 'vizwiz':
             result = vqa.evaluate(
                     test_dataloader, 
-                    dump='results/viz_mc_mtmt_test.json'
+                    dump='results/viz_mc_mt_test.json'
                 )
         else:
             result = vqa.evaluate(
                     test_dataloader, 
-                    dump='results/gqa_mc_mtmt_test.json'
+                    dump='results/gqa_mc_mt_test.json'
                 )
             print('ACC:', result)
 

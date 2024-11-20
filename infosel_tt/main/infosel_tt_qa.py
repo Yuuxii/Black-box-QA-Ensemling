@@ -8,7 +8,7 @@ import argparse
 from infosel_qa_data import MCEnsbDataset
 from torch import optim as optim
 import numpy as np
-from transformers import AutoTokenizer, RobertaForMultipleChoice, AlbertForMultipleChoice, AutoModelForMultipleChoice, TrainingArguments, Trainer
+from transformers import AutoTokenizer, AutoModelForMultipleChoice, TrainingArguments, Trainer
 from dataclasses import dataclass
 from transformers.tokenization_utils_base import PreTrainedTokenizerBase, PaddingStrategy
 from typing import Optional, Union
@@ -62,6 +62,7 @@ class DataCollatorForMultipleChoice:
 
 class CustomTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
+        # num_items_in_batch = kwargs.get('num_items_in_batch')
         labels = inputs.get("labels")
         # forward pass
         # print('input', inputs)
@@ -229,6 +230,7 @@ if __name__ == '__main__':
     parser.add_argument('--shuffle', action='store_true') # test on testdev data
     parser.add_argument('--exclude_worst_model', action='store_true')
     parser.add_argument('--random_sample', action='store_true')
+    parser.add_argument('--input_info', default='qa')
     args = parser.parse_args()
     print('args:', args)
 
